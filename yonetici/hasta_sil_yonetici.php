@@ -1,5 +1,5 @@
 <?php
-//veri tabanı baglantısı
+//veri tabanı bağlantısı
 const host = "localhost";
 const username= "root";
 const password="";
@@ -17,23 +17,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hasta_tc = $_POST['hasta_tc'];
 
     // Veri doğrulama
-    if (empty($hasta_tc) ) {
+    if (empty($hasta_tc)) {
         // Eğer herhangi bir alan boşsa
         echo "Lütfen tüm alanları doldurun.";
     } else {
-        // Kullanıcının varlığını kontrol et
+        // Hastanın varlığını kontrol et
         $query_check = "SELECT * FROM tbl_hasta WHERE hastaTC = '$hasta_tc'";
         $result_check = mysqli_query($baglanti, $query_check);
         if (mysqli_num_rows($result_check) == 0) {
-            // Kullanıcı yoksa
-            echo "Bu TC numarasına sahip bir kullanıcı bulunamadı.";
+            // Hastanın olmadığına dair bir hata göster
+            echo "Bu TC numarasına sahip bir hasta bulunamadı.";
         } else {
-            // Kullanıcı varsa, silme işlemini yap
-            $query_delete = "DELETE FROM tbl_hasta WHERE hastaTC = '$hasta_tc'";
-            if (mysqli_query($baglanti, $query_delete)) {
-                echo "Hasta başarıyla silindi.";
+            // Hastanın randevularını sil
+            $query_delete_randevu = "DELETE FROM tbl_randevu WHERE hastaid IN (SELECT hastaid FROM tbl_hasta WHERE hastaTC = '$hasta_tc')";
+            if (mysqli_query($baglanti, $query_delete_randevu)) {
+                // Hastanın tüm randevuları silindi, şimdi hastayı sil
+                $query_delete_hasta = "DELETE FROM tbl_hasta WHERE hastaTC = '$hasta_tc'";
+                if (mysqli_query($baglanti, $query_delete_hasta)) {
+                    echo "Hasta başarıyla silindi.";
+                } else {
+                    echo "Hasta silinirken bir hata oluştu: " . mysqli_error($baglanti);
+                }
             } else {
-                echo "Silme işlemi sırasında bir hata oluştu: " . mysqli_error($baglanti);
+                echo "Hastanın randevularını silerken bir hata oluştu: " . mysqli_error($baglanti);
             }
         }
     }
@@ -48,7 +54,7 @@ mysqli_close($baglanti);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasta Kayıt</title>
+    <title>Hasta Silme</title>
 </head>
 <body>
     <h1>Silmek İstediğiniz Hastanın Gerekli Bilgilerini Giriniz</h1>
