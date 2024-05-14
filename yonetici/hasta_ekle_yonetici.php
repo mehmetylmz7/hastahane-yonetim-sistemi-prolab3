@@ -9,7 +9,7 @@
     <h1>Geçmiş Olsun! Yeni Hasta Kaydı</h1>
 
     <h2>Hastadan Bilgiler</h2>
-    <form action="hasta_kayit.php" method="post">
+    <form action="hasta_ekle_yonetici.php" method="post">
         <label for="ad">Ad:</label><br>
         <input type="text" id="ad" name="hasta_ad"><br>
 
