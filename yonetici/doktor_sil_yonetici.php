@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $doktor_tc = $_POST['doktor_tc'];
 
     // Veri doğrulama
-    if (empty($doktor_tc) ) {
+    if (empty($doktor_tc)) {
         // Eğer herhangi bir alan boşsa
         echo "Lütfen tüm alanları doldurun.";
     } else {
@@ -28,12 +28,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Doktor yoksa
             echo "Bu TC numarasına sahip bir doktor bulunamadı.";
         } else {
-            // Doktor varsa, silme işlemini yap
-            $query_delete = "DELETE FROM tbl_doktor WHERE doktorTC = '$doktor_tc'";
-            if (mysqli_query($baglanti, $query_delete)) {
-                echo "Doktor başarıyla silindi.";
+            // Doktor varsa, randevularını kontrol et
+            $row_doktor = mysqli_fetch_assoc($result_check);
+            $doktorID = $row_doktor['doktorid'];
+
+            // Doktorun randevularını sil
+            $query_delete_randevu = "DELETE FROM tbl_randevu WHERE doktorid = '$doktorID'";
+            if (mysqli_query($baglanti, $query_delete_randevu)) {
+                // Randevular başarıyla silindi, şimdi doktoru silebiliriz
+                $query_delete_doktor = "DELETE FROM tbl_doktor WHERE doktorTC = '$doktor_tc'";
+                if (mysqli_query($baglanti, $query_delete_doktor)) {
+                    echo "Doktor başarıyla silindi.";
+                } else {
+                    echo "Doktor silinirken bir hata oluştu: " . mysqli_error($baglanti);
+                }
             } else {
-                echo "Silme işlemi sırasında bir hata oluştu: " . mysqli_error($baglanti);
+                echo "Randevuları silerken bir hata oluştu: " . mysqli_error($baglanti);
             }
         }
     }
