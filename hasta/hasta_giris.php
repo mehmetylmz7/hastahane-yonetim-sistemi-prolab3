@@ -61,6 +61,9 @@ if(isset($_SESSION["hastaTC"])) {
     <div class="item">
         <a href="hasta_randevu_iptal.php">Randevu İptal Et</a>
     </div>
+    <div class="item">
+        <a href="hasta_randevu_guncelle.php">Randevu Randevu Guncelle</a>
+    </div>
     
 </div>
 </body>
