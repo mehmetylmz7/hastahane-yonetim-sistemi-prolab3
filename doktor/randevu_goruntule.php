@@ -4,7 +4,7 @@ session_start();
 const host = "localhost";
 const username= "root";
 const password="";
-const database="hastanedb";
+const database="hastanedb2";
 
 if(isset($_SESSION["doktorTC"])) {
     $doktorTC = $_SESSION["doktorTC"];
