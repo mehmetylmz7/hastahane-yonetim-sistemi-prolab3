@@ -1,0 +1,61 @@
+{
+    "hasta_bilgileri": {
+        "hastaid": 1,
+        "hastaAd": "Mehmet",
+        "hastaSoyad": "Yılmaz",
+        "hastaTC": "36505502848",
+        "hastaTelefon": "05522285213",
+        "hastasifre": "mehmet123",
+        "hastaCinsiyet": "Erkek",
+        "hastaAdres": "Karaçay mahallesi",
+        "hastaDogumTarihi": "2024-05-01"
+    },
+    "tibbi_raporlar": [],
+    "gecmis_randevular": [
+        {
+            "randevuid": 107,
+            "randevuTarih": "2000-12-23",
+            "randevuSaati": "10:03:00",
+            "randevuDurum": "Beklemede",
+            "doktorAd": "Mehmet",
+            "doktorSoyad": "Kaya",
+            "doktorBrans": "Nöroloji"
+        },
+        {
+            "randevuid": 356,
+            "randevuTarih": "2016-11-23",
+            "randevuSaati": "13:59:00",
+            "randevuDurum": "İptal Edil",
+            "doktorAd": "Zeynep",
+            "doktorSoyad": "Kurt",
+            "doktorBrans": "Nefroloji"
+        },
+        {
+            "randevuid": 401,
+            "randevuTarih": "2024-05-31",
+            "randevuSaati": "12:15:00",
+            "randevuDurum": "Aldi",
+            "doktorAd": "Zeynep",
+            "doktorSoyad": "Kurt",
+            "doktorBrans": "Nefroloji"
+        },
+        {
+            "randevuid": 402,
+            "randevuTarih": "2024-05-30",
+            "randevuSaati": "14:45:00",
+            "randevuDurum": "Aldi",
+            "doktorAd": "Seda",
+            "doktorSoyad": "Öztürk",
+            "doktorBrans": "Psikiyatri"
+        },
+        {
+            "randevuid": 403,
+            "randevuTarih": "2024-05-31",
+            "randevuSaati": "22:14:00",
+            "randevuDurum": "Aldi",
+            "doktorAd": "Berhan",
+            "doktorSoyad": "Baykara",
+            "doktorBrans": "Kardioloji"
+        }
+    ]
+}

@@ -15,7 +15,7 @@
 
    echo "MySQL bağlantısı oluşturuldu<br>";
 
-   $sql = "INSERT INTO tbl_randevu (randevuid,randevuTarih, randevuSaati, doktorid, randevuDurum, hastaid) 
+  /* $sql = "INSERT INTO tbl_randevu (randevuid,randevuTarih, randevuSaati, doktorid, randevuDurum, hastaid) 
    VALUES 
    (3, '2022-09-12', '13:30:51', 14, 'Onaylandı', 8),
    (4, '2013-03-08', '13:30:09', 7, 'Beklemede', 80),
@@ -1014,7 +1014,7 @@
    (997, '2020-06-30', '16:00:40', 21, 'Beklemede', 33),
    (998, '2001-04-07', '13:30:11', 17, 'Beklemede', 63),
    (999, '2001-01-09', '16:30:34', 3, 'İptal', 14);";
-
+*/
    if(mysqli_query($baglanti, $sql)){
        echo "Doktorlar başarıyla eklendi";
    } else{

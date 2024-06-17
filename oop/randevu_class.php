@@ -57,3 +57,4 @@ class Randevu {
         return $result->fetch_assoc();
     }
 }
+?>

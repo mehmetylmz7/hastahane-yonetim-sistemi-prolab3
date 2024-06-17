@@ -1,5 +1,5 @@
 <?php
-//veri tabanı bağlantısı
+// Veritabanı bağlantısı
 const host = "localhost";
 const username= "root";
 const password="";
@@ -9,7 +9,7 @@ $baglanti=mysqli_connect(host, username, password, database);
 
 if(mysqli_connect_errno()>0)
 {
-   die("hata: ".mysqli_connect_errno());
+   die("Hata: ".mysqli_connect_errno());
 }
 
 // Formdan gelen verileri al
@@ -32,18 +32,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row_doktor = mysqli_fetch_assoc($result_check);
             $doktorID = $row_doktor['doktorid'];
 
-            // Doktorun randevularını sil
-            $query_delete_randevu = "DELETE FROM tbl_randevu WHERE doktorid = '$doktorID'";
-            if (mysqli_query($baglanti, $query_delete_randevu)) {
-                // Randevular başarıyla silindi, şimdi doktoru silebiliriz
-                $query_delete_doktor = "DELETE FROM tbl_doktor WHERE doktorTC = '$doktor_tc'";
-                if (mysqli_query($baglanti, $query_delete_doktor)) {
-                    echo "Doktor başarıyla silindi.";
-                } else {
-                    echo "Doktor silinirken bir hata oluştu: " . mysqli_error($baglanti);
-                }
+            // Doktorun aktif randevusu var mı kontrol et
+            $query_check_randevu = "SELECT * FROM tbl_randevu WHERE doktorid = '$doktorID' AND randevuTarih >= CURDATE()";
+            $result_check_randevu = mysqli_query($baglanti, $query_check_randevu);
+
+            if (mysqli_num_rows($result_check_randevu) > 0) {
+                // Doktorun aktif randevusu varsa
+                echo "Doktorunuzun gelecek tarihlerde randevusu bulunmaktadır. Doktor silinemez.";
             } else {
-                echo "Randevuları silerken bir hata oluştu: " . mysqli_error($baglanti);
+                // Doktorun randevularını sil
+                $query_delete_randevu = "DELETE FROM tbl_randevu WHERE doktorid = '$doktorID'";
+                if (mysqli_query($baglanti, $query_delete_randevu)) {
+                    // Randevular başarıyla silindi, şimdi doktoru silebiliriz
+                    $query_delete_doktor = "DELETE FROM tbl_doktor WHERE doktorTC = '$doktor_tc'";
+                    if (mysqli_query($baglanti, $query_delete_doktor)) {
+                        echo "Doktor başarıyla silindi.";
+                    } else {
+                        echo "Doktor silinirken bir hata oluştu: " . mysqli_error($baglanti);
+                    }
+                } else {
+                    echo "Randevuları silerken bir hata oluştu: " . mysqli_error($baglanti);
+                }
             }
         }
     }

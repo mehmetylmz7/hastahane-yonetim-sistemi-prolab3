@@ -54,3 +54,4 @@ class Doktor {
         return $result->fetch_assoc();
     }
 }
+?>
